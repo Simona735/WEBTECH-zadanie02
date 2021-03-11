@@ -1,0 +1,15 @@
+.action-button{
+    width: 33px;
+}
+.sortable > p{
+    cursor: pointer;
+    color: #0e50ba;
+    height: 9px;
+}
+.sortable > p > img{
+    height: 11px;
+}
+#profile{
+    height: 30px;
+    width: 30px;
+}

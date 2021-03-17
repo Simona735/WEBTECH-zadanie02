@@ -89,31 +89,32 @@ $rankings = $person->getRankingLine();
         <h2 class="bi bi-trophy">
             Umiestnenia</h2>
     </div>
-    <table class="table" id="details">
-        <thead>
-        <tr>
-            <th scope="col" >Rok</th>
-            <th scope="col" >Typ</th>
-            <th scope="col" >Mesto</th>
-            <th scope="col" >Umiestnenie</th>
-            <th scope="col" >Disciplína</th>
-        </tr>
-        </thead>
-        <tbody id="table2Body">
-        <?php
-        foreach ($rankings as $ranking){?>
+    <div class="table-responsive">
+        <table class="table" id="details">
+            <thead>
             <tr>
-                <td><?php echo $ranking[0] ?></td>
-                <td><?php echo $ranking[1] ?></td>
-                <td><?php echo $ranking[2] ?></td>
-                <td><?php echo $ranking[3] ?>.</td>
-                <td><?php echo $ranking[4] ?></td>
+                <th scope="col" >Rok</th>
+                <th scope="col" >Typ</th>
+                <th scope="col" >Mesto</th>
+                <th scope="col" >Umiestnenie</th>
+                <th scope="col" >Disciplína</th>
             </tr>
+            </thead>
+            <tbody id="table2Body">
             <?php
-        } ?>
-        </tbody>
-    </table>
-
+            foreach ($rankings as $ranking){?>
+                <tr>
+                    <td><?php echo $ranking[0] ?></td>
+                    <td><?php echo $ranking[1] ?></td>
+                    <td><?php echo $ranking[2] ?></td>
+                    <td><?php echo $ranking[3] ?>.</td>
+                    <td><?php echo $ranking[4] ?></td>
+                </tr>
+                <?php
+            } ?>
+            </tbody>
+        </table>
+    </div>
     <div class="row py-lg-5 text-center">
         <div class="col-lg-12 col-md-12">
             <p>

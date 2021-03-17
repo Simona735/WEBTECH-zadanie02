@@ -61,21 +61,23 @@ function console_log( $data ){
     <div class="py-5 text-center">
         <h2>Naši olympijskí víťazi</h2>
     </div>
-    <table class="table " id="ourWinners">
-        <thead>
-        <tr class="table-active">
-            <th scope="col" >ID</th>
-            <th scope="col" >Meno</th>
-            <th scope="col" class="sortable" id="surname" ><p><img src="img/sortable.jpg">Priezvisko</p></th>
-            <th scope="col" class="sortable" id="year"><p><img src="img/sortable.jpg">Rok</p></th>
-            <th scope="col" >Mesto</th>
-            <th scope="col" class="sortable" id="type"><p><img src="img/sortable.jpg">Typ</p></th>
-            <th scope="col" >Disciplína</th>
-        </tr>
-        </thead>
-        <tbody id="table1Body">
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table " id="ourWinners">
+            <thead>
+            <tr class="table-active">
+                <th scope="col" >ID</th>
+                <th scope="col" >Meno</th>
+                <th scope="col" class="sortable" id="surname" ><p><u>Priezvisko</u></p></th>
+                <th scope="col" class="sortable" id="year"><p><u>Rok</u></p></th>
+                <th scope="col" >Mesto</th>
+                <th scope="col" class="sortable" id="type"><p><u>Typ</u></p></th>
+                <th scope="col" >Disciplína</th>
+            </tr>
+            </thead>
+            <tbody id="table1Body">
+            </tbody>
+        </table>
+    </div>
     <div class="row py-lg-5 text-center">
         <div class="col-lg-12 col-md-12">
             <p>
@@ -95,47 +97,46 @@ function console_log( $data ){
     <div class="py-5 text-center">
         <h2>10 najúspešnejších olympionikov</h2>
     </div>
-    <table class="table " id="top10">
-        <thead>
-        <tr class="table-active">
-            <th scope="col" >Poradie</th>
-            <th scope="col" >Meno</th>
-            <th scope="col" >Priezvisko</th>
-            <th scope="col" >Počet zlatých medajlí</th>
-            <th scope="col" >Akcia</th>
-        </tr>
-        </thead>
-        <tbody id="table2Body">
-        <?php
-            $rank = 0;
-            foreach ($top10 as $data){
-                $rank++;?>
-            <tr>
-                <td><?php echo $rank?>.</td>
-                <td>
-                    <a class="text-decoration-none" href="detail.php?id=<?php echo $data[0] ?>"><?php echo $data[1] ?><a>
-                </td>
-                <td><?php echo $data[2] ?></td>
-                <td><?php echo $data[3] ?></td>
-                <td>
-                    <ul class="list-inline m-0">
-                        <li class="list-inline-item">
-                            <a href="edit.php?id=<?php echo $data[0] ?>" type="button" class="btn btn-primary btn-sm rounded-1 action-button" data-toggle="tooltip" data-placement="top" title="Edit">
-                                <i class="bi bi-pencil-square"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="index.php?deleteId=<?php echo $data[0] ?>" type="button" class="btn btn-danger btn-sm rounded-1 action-button" data-toggle="tooltip" data-placement="top" title="Delete">
-                                <i class="bi bi-trash"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </td>
+    <div class="table-responsive">
+        <table class="table" id="top10">
+            <thead>
+            <tr class="table-active">
+                <th scope="col" >Poradie</th>
+                <th scope="col" >Meno</th>
+                <th scope="col" >Priezvisko</th>
+                <th scope="col" >Počet zlatých medajlí</th>
+                <th scope="col" ></th>
+                <th scope="col" ></th>
             </tr>
-        <?php
-            } ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody id="table2Body">
+            <?php
+                $rank = 0;
+                foreach ($top10 as $data){
+                    $rank++;?>
+                <tr>
+                    <td><?php echo $rank?>.</td>
+                    <td>
+                        <a class="text-decoration-none" href="detail.php?id=<?php echo $data[0] ?>"><?php echo $data[1] ?><a>
+                    </td>
+                    <td><?php echo $data[2] ?></td>
+                    <td><?php echo $data[3] ?></td>
+                    <td>
+                        <a href="edit.php?id=<?php echo $data[0] ?>" type="button" class="btn btn-primary btn-sm rounded-1 action-button" data-toggle="tooltip" data-placement="top" title="Edit">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="index.php?deleteId=<?php echo $data[0] ?>" type="button" class="btn btn-danger btn-sm rounded-1 action-button" data-toggle="tooltip" data-placement="top" title="Delete">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            <?php
+                } ?>
+            </tbody>
+        </table>
+    </div>
 
 
     <footer class="my-3 pt-5 text-muted text-center text-small">

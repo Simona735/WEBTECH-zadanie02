@@ -202,7 +202,7 @@ class Person
 
     public function getBasicData(): array
     {
-        return [$this->id, $this->name, $this->surname];
+        return [$this->id, $this->name, $this->surname, $this->birth_day];
     }
 
     public function getRankingLine(): array

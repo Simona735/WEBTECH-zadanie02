@@ -1,12 +1,23 @@
 <?php
 require_once "helpers/personDBController.php";
+require_once "models/person.php";
+require_once "models/ranking.php";
+$controller = new PersonDBController();
+
 if (isset($_POST["name"]) && isset($_POST["surname"])) {
-    console_log("aaa");
-    $controller = new PersonDBController();
-    $lastInsertedId = $controller->insertPerson($_POST['name'], $_POST['surname'],(new DateTime($_POST['birth_day']))->format('d.n.Y'), $_POST['birth_place'] , $_POST['birth_country'],((empty($_POST['death_day']) || is_null($_POST['death_day']))? '' : (new DateTime($_POST['death_day']))->format('d.n.Y')) ,((empty($_POST['death_place']) || is_null($_POST['death_place']) )? '' : $_POST['death_place']) , ((empty($_POST['death_country']) || is_null($_POST['death_country']) )? '' : $_POST['death_country']));
+
+    $lastInsertedId = $controller->insertPerson($_POST['name'], $_POST['surname'],(new DateTime($_POST['birth_day']))->format('j.n.Y'), $_POST['birth_place'] , $_POST['birth_country'],((empty($_POST['death_day']) || is_null($_POST['death_day']))? '' : (new DateTime($_POST['death_day']))->format('j.n.Y')) ,((empty($_POST['death_place']) || is_null($_POST['death_place']) )? '' : $_POST['death_place']) , ((empty($_POST['death_country']) || is_null($_POST['death_country']) )? '' : $_POST['death_country']));
     header('Location:addRanking.php?id='.$lastInsertedId);
 }
 
+$people = $controller->getAllPeople();
+
+$ourAthletes = [];
+foreach ($people as $person){
+        array_push($ourAthletes, $person->getBasicData());
+}
+
+$ourAthletesJSON = json_encode($ourAthletes);
 ?>
 
 <!doctype html>
@@ -33,7 +44,7 @@ if (isset($_POST["name"]) && isset($_POST["surname"])) {
     </div>
     <div class="row justify-content-center">
         <div class="col-md-12 order-md-1">
-            <form method="post" action="addPerson.php">
+            <form method="post" id="form" action="addPerson.php">
                 <div class="form-row justify-content-center">
                     <div class="col-md-4 mb-3 ">
                         <label for="name">Meno</label>
@@ -122,6 +133,39 @@ if (isset($_POST["name"]) && isset($_POST["surname"])) {
 <script src="https://code.jquery.com/jquery-3.5.1.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
+
+<script>
+    var ourAthletes = <?php echo $ourAthletesJSON?>;
+
+    $("#form").submit(function( event ) {
+        event.preventDefault();
+        if (isPresent()) {
+            alert("Športovec v databáze už existuje");
+        }
+        else{
+            this.submit();
+        }
+    });
+
+    function isPresent(){
+        let valid = 0;
+        let name = $('#name').val();
+        let surname = $('#surname').val();
+        let birth_day = new Date($('#birth_day').val());
+
+        let y = birth_day.getFullYear();
+        let m = birth_day.getMonth()+1;
+        let d = birth_day.getDate();
+        let date = `${d}.${m}.${y}`;
+
+        ourAthletes.forEach((entry) =>{
+            if (!name.localeCompare(entry[1]) && !surname.localeCompare(entry[2]) && !date.localeCompare(entry[3])){
+                valid = 1;
+            }
+        });
+        return valid;
+    }
+</script>
 
 </body>
 </html>
